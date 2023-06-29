@@ -1,0 +1,27 @@
+{
+  "name": "proposal-schedule-in-kosen",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.6",
+    "@mui/x-date-pickers": "^6.9.0",
+    "dayjs": "^1.11.8",
+    "just-group-by": "^2.2.0",
+    "preact": "^10.13.2",
+    "preact-router": "^4.1.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.5.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9"
+  }
+}
