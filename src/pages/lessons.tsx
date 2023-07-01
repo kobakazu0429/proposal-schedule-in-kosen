@@ -30,7 +30,16 @@ export const LessonsPage: FunctionComponent = () => {
         <Grid item xs={4} />
 
         <Grid item xs={12}>
-          <Chooser options={["A", "B", "C", "D"]} isConnectOption />
+          <Chooser
+            options={[
+              { name: "A", start: "144000", end: "161000" },
+              { name: "B", start: "162000", end: "175000" },
+              { name: "C", start: "180000", end: "193000" },
+              { name: "D", start: "194000", end: "211000" },
+            ]}
+            isConnectOption
+            calendarSubject="明光義塾"
+          />
         </Grid>
       </Grid>
     </Box>

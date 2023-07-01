@@ -14,16 +14,21 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import groupBy from "just-group-by";
 
+type HHmmss = string;
+
 export interface Props {
-  options: string[];
+  options: { name: string; start: HHmmss; end: HHmmss }[];
   isConnectOption?: boolean;
+  calendarSubject: string;
 }
 
 export const Chooser: FunctionComponent<Props> = ({
   options,
   isConnectOption = false,
+  calendarSubject,
 }) => {
   const [selectedDates, setSelectedDates] = useState<Dayjs[]>([]);
   const [checkedDates, setCheckedDates] = useState<
@@ -45,8 +50,8 @@ export const Chooser: FunctionComponent<Props> = ({
             const diffDate = a.date.unix() - b.date.unix();
             if (diffDate !== 0) return diffDate;
             return (
-              options.findIndex((o) => o === a.option) -
-              options.findIndex((o) => o === b.option)
+              options.findIndex((o) => o.name === a.option) -
+              options.findIndex((o) => o.name === b.option)
             );
           })
         );
@@ -73,7 +78,7 @@ export const Chooser: FunctionComponent<Props> = ({
                 <TableRow>
                   <TableCell>日付</TableCell>
                   {options.map((option) => (
-                    <TableCell align="center">{option}</TableCell>
+                    <TableCell align="center">{option.name}</TableCell>
                   ))}
                 </TableRow>
               </TableHead>
@@ -90,7 +95,7 @@ export const Chooser: FunctionComponent<Props> = ({
                       <TableCell align="center">
                         <Checkbox
                           onChange={(_e, checked) =>
-                            handleCheckboxClick(date, option, checked)
+                            handleCheckboxClick(date, option.name, checked)
                           }
                         />
                       </TableCell>
@@ -109,7 +114,42 @@ export const Chooser: FunctionComponent<Props> = ({
                   date.locale("ja").format("MM/DD(dd)")
                 )
               ).map(([date, dates]) => (
-                <p>{`${date} ${dates.map(({ option }) => option).join("")}`}</p>
+                <Box sx={{ flexGrow: 1 }}>
+                  <Grid
+                    container
+                    spacing={2}
+                    justifyContent="left"
+                    alignItems="center"
+                  >
+                    <Grid item xs={2}>
+                      <p>{`${date} ${dates
+                        .map(({ option }) => option)
+                        .join("")}`}</p>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button
+                        variant="outlined"
+                        startIcon={<EditCalendarIcon />}
+                        href={generateRegisterCalendarLink({
+                          subject: calendarSubject,
+                          start:
+                            dates.at(0)!.date.format("YYYYMMDDT") +
+                            options.find((o) => o.name === dates.at(0)?.option)
+                              ?.start,
+                          end: dates.at(-1)
+                            ? dates.at(-1)!.date.format("YYYYMMDDT") +
+                              options.find(
+                                (o) => o.name === dates.at(-1)!.option
+                              )!.end
+                            : "",
+                        })}
+                        target="_blank"
+                      >
+                        カレンダーに追加する
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Box>
               ))
             : checkedDates.map(({ date, option }) => (
                 <p>{`${date.locale("ja").format("MM/DD(dd)")} ${option}`}</p>
@@ -148,4 +188,27 @@ export const Chooser: FunctionComponent<Props> = ({
       </Grid>
     </Box>
   );
+};
+
+const generateRegisterCalendarLink = (params: {
+  subject: string;
+  start: Dayjs | string;
+  end: Dayjs | string;
+}) => {
+  const f = "YYYYMMDDTHHmm00";
+  const dates =
+    (typeof params.start === "string" ? params.start : params.start.format(f)) +
+    "/" +
+    (typeof params.end === "string" ? params.end : params.end.format(f)) +
+    "";
+
+  const base = "https://www.google.com/calendar/render";
+  const url = new URL(base);
+  // @ts-expect-error
+  url.search = new URLSearchParams({
+    action: "TEMPLATE",
+    text: params.subject,
+    dates,
+  });
+  return url.toString();
 };
