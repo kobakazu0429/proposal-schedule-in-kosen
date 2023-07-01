@@ -29,9 +29,9 @@ dependencies:
   preact:
     specifier: ^10.13.2
     version: 10.13.2
-  preact-router:
-    specifier: ^4.1.1
-    version: 4.1.1(preact@10.13.2)
+  wouter-preact:
+    specifier: ^2.11.0
+    version: 2.11.0(preact@10.13.2)
 
 devDependencies:
   '@preact/preset-vite':
@@ -1289,14 +1289,6 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /preact-router@4.1.1(preact@10.13.2):
-    resolution: {integrity: sha512-+LGrB3b2nR7+8vzyHw8i2/TjZazs3oMJovIEgBChPBXMDSISmwj2WDynZh8KDxZRK2GuXlqHPk15mMjaYWZH4g==}
-    peerDependencies:
-      preact: '>=10'
-    dependencies:
-      preact: 10.13.2
-    dev: false
-
   /preact@10.13.2:
     resolution: {integrity: sha512-q44QFLhOhty2Bd0Y46fnYW0gD/cbVM9dUVtNTDKPcdXSMA7jfY+Jpd6rk3GB0lcQss0z5s/6CmVP0Z/hV+g6pw==}
 
@@ -1459,6 +1451,14 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /wouter-preact@2.11.0(preact@10.13.2):
+    resolution: {integrity: sha512-0eGcl9kI1lk/85/6uri46s5rP+j92F1US2FHzG1ezwF97l0Mas/1n0q9YmKNX3s1VzMxO+ajYKRfAKbsxn+/sA==}
+    peerDependencies:
+      preact: ^10.0.0
+    dependencies:
+      preact: 10.13.2
+    dev: false
 
   /yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}

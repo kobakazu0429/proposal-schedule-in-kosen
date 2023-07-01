@@ -1,5 +1,5 @@
 import { render, type FunctionComponent } from "preact";
-import Router from "preact-router";
+import { Router, Route } from "wouter-preact";
 import "dayjs/locale/ja";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -18,23 +18,31 @@ dayjs.locale("ja");
 
 const App: FunctionComponent = () => (
   <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <Router>
-      <Box path="/">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/school">
-              <ListItemText primary="学校" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/lessons">
-              <ListItemText primary="塾" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Box>
-      <SchoolPage path="/school" />
-      <LessonsPage path="/lessons" />
+    <Router base="/proposal-schedule-in-kosen">
+      <Route path="/">
+        <Box>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/proposal-schedule-in-kosen/school"
+              >
+                <ListItemText primary="学校" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Link}
+                to="/proposal-schedule-in-kosen/lessons"
+              >
+                <ListItemText primary="塾" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      </Route>
+      <Route path="/school" component={SchoolPage} />
+      <Route path="/lessons" component={LessonsPage} />
     </Router>
   </LocalizationProvider>
 );

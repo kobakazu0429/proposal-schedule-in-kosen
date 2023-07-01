@@ -17,7 +17,7 @@
     "dayjs": "^1.11.8",
     "just-group-by": "^2.2.0",
     "preact": "^10.13.2",
-    "preact-router": "^4.1.1"
+    "wouter-preact": "^2.11.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
