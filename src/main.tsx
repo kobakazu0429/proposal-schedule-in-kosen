@@ -1,11 +1,11 @@
 import { render, type FunctionComponent } from "preact";
-import { Router, Route } from "wouter-preact";
+import { Router, Route, Link } from "wouter-preact";
 import "dayjs/locale/ja";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+import MuiLink from "@mui/material/Link";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -23,20 +23,18 @@ const App: FunctionComponent = () => (
         <Box>
           <List>
             <ListItem disablePadding>
-              <ListItemButton
-                component={Link}
-                to="/proposal-schedule-in-kosen/school"
-              >
-                <ListItemText primary="学校" />
-              </ListItemButton>
+              <Link href="/school">
+                <ListItemButton component={MuiLink}>
+                  <ListItemText primary="学校" />
+                </ListItemButton>
+              </Link>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton
-                component={Link}
-                to="/proposal-schedule-in-kosen/lessons"
-              >
-                <ListItemText primary="塾" />
-              </ListItemButton>
+              <Link href="/lessons">
+                <ListItemButton component={MuiLink}>
+                  <ListItemText primary="塾" />
+                </ListItemButton>
+              </Link>
             </ListItem>
           </List>
         </Box>
